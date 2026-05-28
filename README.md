@@ -23,7 +23,7 @@ A clean, minimal zsh theme for Oh My Zsh with a dashed separator, left-aligned d
 ### Quick install (curl)
 
 ```bash
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/dereklarmstrong/clean-term-omz/master/install.sh)"
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/dereklarmstrong/clean-term-omz/main/install.sh)"
 ```
 
 ### Manual install
