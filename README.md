@@ -20,10 +20,16 @@ A clean, minimal zsh theme for Oh My Zsh with a dashed separator, left-aligned d
 
 ## Installation
 
-Clone this repo and set it as `ZSH_CUSTOM` in your `.zshrc`:
+### Quick install (curl)
 
 ```bash
-git clone https://github.com/Guiselle-404/clean-term-omz.git ~/.oh-my-zsh/custom/themes/clean-term-omz
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/dereklarmstrong/clean-term-omz/master/install.sh)"
+```
+
+### Manual install
+
+```bash
+git clone https://github.com/dereklarmstrong/clean-term-omz.git ~/.oh-my-zsh/custom/themes/clean-term-omz
 ```
 
 Then add to your `.zshrc`:
