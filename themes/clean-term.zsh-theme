@@ -4,7 +4,7 @@
 setopt prompt_subst
 
 _derek_dashes() {
-  printf '%*s' "$COLUMNS" '' | tr ' ' '─'
+  printf '%*s' "$COLUMNS" '' | tr ' ' '-'
 }
 
 PS1='%{$fg[237]%}$(_derek_dashes)%{$reset_color%}
