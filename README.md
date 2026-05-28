@@ -5,18 +5,18 @@ A clean, minimal zsh theme for Oh My Zsh with a dashed separator, left-aligned d
 ## Preview
 
 ```
-────────────────────────────────────────────────────────────────────────────────────────────────────────────────→
+─────────────────────────────────────────────────────────
   ~/code/my-project                                       main
-> 
+>
 ```
 
 ## Features
 
 - Dashed horizontal separator between prompts
 - Current working directory on the left (bold white)
-- Git branch name on the right (green) — only shown in git repos
-- `»` prompt for regular users, `#` for root
-- Ultimate simplicity — no bloat, no custom characters, no color coding complexity
+- Git branch name on the right (green) - only shown in git repos
+- `>` prompt for regular users, `#` for root
+- Ultimate simplicity - no bloat, no custom characters, no color coding complexity
 
 ## Installation
 
@@ -55,4 +55,4 @@ source ~/.zshrc
 
 ## License
 
-MIT — [LICENSE](LICENSE)
+MIT - [LICENSE](LICENSE)
