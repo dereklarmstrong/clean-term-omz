@@ -7,25 +7,52 @@ A clean, minimal zsh theme for Oh My Zsh with a dashed separator, left-aligned d
 ### Default prompt
 
 ```
-────────────────────────────────────────────────────────
-  ~/code/my-project                                       main
->
+┌───────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│  Select plugins to install (Space to toggle, Enter to confirm):                                                   │
+│                                                                                                                   │
+│  [ ] 1 git                                                                                                        │
+│  [X] 2 zsh-autosuggestions                                                                                        │
+│  [X] 3 zsh-syntax-highlighting                                                                                    │
+│  [ ] 4 zsh-history-substring-search                                                                               │
+│  [ ] 5 zsh-copyfile                                                                                               │
+│                                                                                                                   │
+│                                                                                                  <OK>  <Cancel>      │
+│                                                                                                                   │
+└───────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ```
 
 ### Inside a git repo with changes
 
 ```
-────────────────────────────────────────────────────────
-  ~/code/my-project/src                                   feat/add-auth
->
+┌───────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│  Select plugins to install (Space to toggle, Enter to confirm):                                                   │
+│                                                                                                                   │
+│  [ ] 1 git                                                                                                        │
+│  [X] 2 zsh-autosuggestions                                                                                        │
+│  [X] 3 zsh-syntax-highlighting                                                                                    │
+│  [ ] 4 zsh-history-substring-search                                                                               │
+│  [ ] 5 zsh-copyfile                                                                                               │
+│                                                                                                                   │
+│                                                                                                  <OK>  <Cancel>      │
+│                                                                                                                   │
+└───────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ```
 
 ### Root user
 
 ```
-────────────────────────────────────────────────────────
-  /etc/nginx                                              
-#
+┌───────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│  Select plugins to install (Space to toggle, Enter to confirm):                                                   │
+│                                                                                                                   │
+│  [ ] 1 git                                                                                                        │
+│  [X] 2 zsh-autosuggestions                                                                                        │
+│  [X] 3 zsh-syntax-highlighting                                                                                    │
+│  [ ] 4 zsh-history-substring-search                                                                               │
+│  [ ] 5 zsh-copyfile                                                                                               │
+│                                                                                                                   │
+│                                                                                                  <OK>  <Cancel>      │
+│                                                                                                                   │
+└───────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ```
 
 ## Features
@@ -47,18 +74,174 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/dereklarmstrong/clean-term
 This gives you an interactive checkbox TUI where you pick your plugins:
 
 ```
-┌─────────────────────────────────────────────────────────┐
-│  Select plugins to install (Space to toggle, Enter to  │
-│  confirm):                                              │
-│                                                         │
-│  [ ] 1 git                                            │
-│  [X] 2 zsh-autosuggestions                             │
-│  [X] 3 zsh-syntax-highlighting                         │
-│  [ ] 4 zsh-history-substring-search                    │
-│  [ ] 5 zsh-copyfile                                    │
-│                                                         │
-│                              <OK>  <Cancel>             │
-└─────────────────────────────────────────────────────────┘
+┌───────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│  Select plugins to install (Space to toggle, Enter to confirm):                                                   │
+│                                                                                                                   │
+│  [ ] 1 git                                                                                                        │
+│  [X] 2 zsh-autosuggestions                                                                                        │
+│  [X] 3 zsh-syntax-highlighting                                                                                    │
+│  [ ] 4 zsh-history-substring-search                                                                               │
+│  [ ] 5 zsh-copyfile                                                                                               │
+│                                                                                                                   │
+│                                                                                                  <OK>  <Cancel>      │
+│                                                                                                                   │
+└───────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+```
+┌───────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│  Select plugins to install (Space to toggle, Enter to confirm):                                                   │
+│                                                                                                                   │
+│  [ ] 1 git                                                                                                        │
+│  [X] 2 zsh-autosuggestions                                                                                        │
+│  [X] 3 zsh-syntax-highlighting                                                                                    │
+│  [ ] 4 zsh-history-substring-search                                                                               │
+│  [ ] 5 zsh-copyfile                                                                                               │
+│                                                                                                                   │
+│                                                                                                  <OK>  <Cancel>      │
+│                                                                                                                   │
+└───────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+```
+┌───────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│  Select plugins to install (Space to toggle, Enter to confirm):                                                   │
+│                                                                                                                   │
+│  [ ] 1 git                                                                                                        │
+│  [X] 2 zsh-autosuggestions                                                                                        │
+│  [X] 3 zsh-syntax-highlighting                                                                                    │
+│  [ ] 4 zsh-history-substring-search                                                                               │
+│  [ ] 5 zsh-copyfile                                                                                               │
+│                                                                                                                   │
+│                                                                                                  <OK>  <Cancel>      │
+│                                                                                                                   │
+└───────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+```
+┌───────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│  Select plugins to install (Space to toggle, Enter to confirm):                                                   │
+│                                                                                                                   │
+│  [ ] 1 git                                                                                                        │
+│  [X] 2 zsh-autosuggestions                                                                                        │
+│  [X] 3 zsh-syntax-highlighting                                                                                    │
+│  [ ] 4 zsh-history-substring-search                                                                               │
+│  [ ] 5 zsh-copyfile                                                                                               │
+│                                                                                                                   │
+│                                                                                                  <OK>  <Cancel>      │
+│                                                                                                                   │
+└───────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+```
+┌───────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│  Select plugins to install (Space to toggle, Enter to confirm):                                                   │
+│                                                                                                                   │
+│  [ ] 1 git                                                                                                        │
+│  [X] 2 zsh-autosuggestions                                                                                        │
+│  [X] 3 zsh-syntax-highlighting                                                                                    │
+│  [ ] 4 zsh-history-substring-search                                                                               │
+│  [ ] 5 zsh-copyfile                                                                                               │
+│                                                                                                                   │
+│                                                                                                  <OK>  <Cancel>      │
+│                                                                                                                   │
+└───────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+```
+┌───────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│  Select plugins to install (Space to toggle, Enter to confirm):                                                   │
+│                                                                                                                   │
+│  [ ] 1 git                                                                                                        │
+│  [X] 2 zsh-autosuggestions                                                                                        │
+│  [X] 3 zsh-syntax-highlighting                                                                                    │
+│  [ ] 4 zsh-history-substring-search                                                                               │
+│  [ ] 5 zsh-copyfile                                                                                               │
+│                                                                                                                   │
+│                                                                                                  <OK>  <Cancel>      │
+│                                                                                                                   │
+└───────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+```
+┌───────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│  Select plugins to install (Space to toggle, Enter to confirm):                                                   │
+│                                                                                                                   │
+│  [ ] 1 git                                                                                                        │
+│  [X] 2 zsh-autosuggestions                                                                                        │
+│  [X] 3 zsh-syntax-highlighting                                                                                    │
+│  [ ] 4 zsh-history-substring-search                                                                               │
+│  [ ] 5 zsh-copyfile                                                                                               │
+│                                                                                                                   │
+│                                                                                                  <OK>  <Cancel>      │
+│                                                                                                                   │
+└───────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+```
+┌───────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│  Select plugins to install (Space to toggle, Enter to confirm):                                                   │
+│                                                                                                                   │
+│  [ ] 1 git                                                                                                        │
+│  [X] 2 zsh-autosuggestions                                                                                        │
+│  [X] 3 zsh-syntax-highlighting                                                                                    │
+│  [ ] 4 zsh-history-substring-search                                                                               │
+│  [ ] 5 zsh-copyfile                                                                                               │
+│                                                                                                                   │
+│                                                                                                  <OK>  <Cancel>      │
+│                                                                                                                   │
+└───────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+```
+┌───────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│  Select plugins to install (Space to toggle, Enter to confirm):                                                   │
+│                                                                                                                   │
+│  [ ] 1 git                                                                                                        │
+│  [X] 2 zsh-autosuggestions                                                                                        │
+│  [X] 3 zsh-syntax-highlighting                                                                                    │
+│  [ ] 4 zsh-history-substring-search                                                                               │
+│  [ ] 5 zsh-copyfile                                                                                               │
+│                                                                                                                   │
+│                                                                                                  <OK>  <Cancel>      │
+│                                                                                                                   │
+└───────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+```
+┌───────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│  Select plugins to install (Space to toggle, Enter to confirm):                                                   │
+│                                                                                                                   │
+│  [ ] 1 git                                                                                                        │
+│  [X] 2 zsh-autosuggestions                                                                                        │
+│  [X] 3 zsh-syntax-highlighting                                                                                    │
+│  [ ] 4 zsh-history-substring-search                                                                               │
+│  [ ] 5 zsh-copyfile                                                                                               │
+│                                                                                                                   │
+│                                                                                                  <OK>  <Cancel>      │
+│                                                                                                                   │
+└───────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+```
+┌───────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│  Select plugins to install (Space to toggle, Enter to confirm):                                                   │
+│                                                                                                                   │
+│  [ ] 1 git                                                                                                        │
+│  [X] 2 zsh-autosuggestions                                                                                        │
+│  [X] 3 zsh-syntax-highlighting                                                                                    │
+│  [ ] 4 zsh-history-substring-search                                                                               │
+│  [ ] 5 zsh-copyfile                                                                                               │
+│                                                                                                                   │
+│                                                                                                  <OK>  <Cancel>      │
+│                                                                                                                   │
+└───────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+```
+┌───────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│  Select plugins to install (Space to toggle, Enter to confirm):                                                   │
+│                                                                                                                   │
+│  [ ] 1 git                                                                                                        │
+│  [X] 2 zsh-autosuggestions                                                                                        │
+│  [X] 3 zsh-syntax-highlighting                                                                                    │
+│  [ ] 4 zsh-history-substring-search                                                                               │
+│  [ ] 5 zsh-copyfile                                                                                               │
+│                                                                                                                   │
+│                                                                                                  <OK>  <Cancel>      │
+│                                                                                                                   │
+└───────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+```
+┌───────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│  Select plugins to install (Space to toggle, Enter to confirm):                                                   │
+│                                                                                                                   │
+│  [ ] 1 git                                                                                                        │
+│  [X] 2 zsh-autosuggestions                                                                                        │
+│  [X] 3 zsh-syntax-highlighting                                                                                    │
+│  [ ] 4 zsh-history-substring-search                                                                               │
+│  [ ] 5 zsh-copyfile                                                                                               │
+│                                                                                                                   │
+│                                                                                                  <OK>  <Cancel>      │
+│                                                                                                                   │
+└───────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ```
 
 It installs:
