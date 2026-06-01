@@ -48,12 +48,12 @@ This gives you an interactive checkbox TUI where you pick your plugins:
 
 ```
 ┌─────────────────────────────────────────────────────────┐
-│   Select plugins to install (Space to toggle, Enter to  │
-│   confirm):                                             │
+│  Select plugins to install (Space to toggle, Enter to  │
+│  confirm):                                              │
 │                                                         │
 │  [ ] 1 git                                            │
-│  [x] 2 zsh-autosuggestions                             │
-│  [x] 3 zsh-syntax-highlighting                         │
+│  [X] 2 zsh-autosuggestions                             │
+│  [X] 3 zsh-syntax-highlighting                         │
 │  [ ] 4 zsh-history-substring-search                    │
 │  [ ] 5 zsh-copyfile                                    │
 │                                                         │
