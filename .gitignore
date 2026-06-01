@@ -1,0 +1,4 @@
+# Local secrets / personal config
+*.secrets
+.env
+.zsh_secrets
