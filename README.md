@@ -48,7 +48,7 @@ This gives you an interactive checkbox TUI where you pick your plugins:
 
 ```
 ┌──────────────────────────────────────────────────┐
-│  Select plugins to install (Space to toggle,    │
+│  Select plugins to install (Space to toggle,     │
 │  Enter to confirm):                              │
 │                                                  │
 │  [ ] 1 git                                       │
