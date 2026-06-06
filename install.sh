@@ -42,8 +42,8 @@ if [[ -f "$THEME_DST" ]]; then
     warn "clean-term theme already installed."
 else
     info "Installing theme..."
-    SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-    cp "$SCRIPT_DIR/themes/clean-term.zsh-theme" "$THEME_DST"
+    mkdir -p "$OMZ_DIR/themes"
+    curl -fsSL "https://raw.githubusercontent.com/dereklarmstrong/clean-term-omz/main/themes/clean-term.zsh-theme" -o "$THEME_DST"
     info "Theme installed."
 fi
 
