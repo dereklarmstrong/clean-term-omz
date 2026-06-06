@@ -60,6 +60,7 @@ PLUGIN_URLS=(
     "https://github.com/zsh-users/zsh-syntax-highlighting.git"
     "https://github.com/zsh-users/zsh-history-substring-search.git"
 )
+)
 
 echo ""
 echo -e "${CYAN}Plugins (optional — just my personal preferences)${NC}"
