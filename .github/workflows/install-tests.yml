@@ -1,0 +1,71 @@
+name: Install Tests
+
+on:
+  push:
+    paths:
+      - 'install.sh'
+      - 'themes/**'
+      - '.github/workflows/install-tests.yml'
+  pull_request:
+    paths:
+      - 'install.sh'
+      - 'themes/**'
+      - '.github/workflows/install-tests.yml'
+  workflow_dispatch:
+
+jobs:
+  test-install:
+    name: ${{ matrix.name }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # Ubuntu versions
+          - name: Ubuntu 22.04
+            os: ubuntu-22.04
+            install_zsh: sudo apt-get update && sudo apt-get install -y zsh git curl
+          - name: Ubuntu 24.04
+            os: ubuntu-24.04
+            install_zsh: sudo apt-get update && sudo apt-get install -y zsh git curl
+
+          # macOS
+          - name: macOS 14
+            os: macos-14
+            install_zsh: brew install zsh || true
+          - name: macOS 15
+            os: macos-15
+            install_zsh: brew install zsh || true
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup and install
+        run: |
+          ${{ matrix.install_zsh }}
+          bash install.sh
+
+      - name: Verify installation
+        run: |
+          [[ -f "$HOME/.oh-my-zsh/themes/clean-term.zsh-theme" ]] || { echo "Theme file missing"; exit 1; }
+          grep -q 'ZSH_THEME="clean-term"' "$HOME/.zshrc" || { echo "Theme not in .zshrc"; exit 1; }
+          grep -q 'plugins=(' "$HOME/.zshrc" || { echo "Plugins not in .zshrc"; exit 1; }
+
+  syntax-check:
+    name: Syntax Check
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check bash syntax
+        run: bash -n install.sh
+
+  theme-check:
+    name: Theme File Check
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify theme file exists and is valid
+        run: |
+          [[ -f themes/clean-term.zsh-theme ]] || exit 1
+          bash -n themes/clean-term.zsh-theme || exit 1
