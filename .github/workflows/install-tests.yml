@@ -22,9 +22,6 @@ jobs:
       matrix:
         include:
           # Ubuntu versions
-          - name: Ubuntu 20.04
-            os: ubuntu-20.04
-            install_zsh: sudo apt-get update && sudo apt-get install -y zsh git curl
           - name: Ubuntu 22.04
             os: ubuntu-22.04
             install_zsh: sudo apt-get update && sudo apt-get install -y zsh git curl
@@ -33,9 +30,6 @@ jobs:
             install_zsh: sudo apt-get update && sudo apt-get install -y zsh git curl
 
           # macOS
-          - name: macOS 13
-            os: macos-13
-            install_zsh: brew install zsh || true
           - name: macOS 14
             os: macos-14
             install_zsh: brew install zsh || true
