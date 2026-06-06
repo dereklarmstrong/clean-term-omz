@@ -119,23 +119,20 @@ if [[ ${#SELECTED_PLUGINS[@]} -gt 0 ]]; then
 fi
 
 if [[ -f "$ZSHRC" ]]; then
-    if grep -q 'ZSH_THEME="clean-term"' "$ZSHRC"; then
-        warn "ZSH_THEME=\"clean-term\" already in $ZSHRC"
-    else
-        # Remove old clean-term block if it exists (portable sed)
-        sed '/# clean-term/,/# end clean-term/d' "$ZSHRC" > "$ZSHRC.tmp" && mv "$ZSHRC.tmp" "$ZSHRC"
+    # Remove old clean-term block and any stray ZSH_THEME line
+    sed '/# clean-term/,/# end clean-term/d' "$ZSHRC" > "$ZSHRC.tmp" && mv "$ZSHRC.tmp" "$ZSHRC"
+    sed '/^ZSH_THEME=/d' "$ZSHRC" > "$ZSHRC.tmp" && mv "$ZSHRC.tmp" "$ZSHRC"
 
-        {
-            echo ""
-            echo "# clean-term theme"
-            echo 'ZSH_THEME="clean-term"'
-            echo ""
-            echo "# plugins (add/remove as you like)"
-            echo "plugins=($PLUGINS_LIST)"
-            echo "# end clean-term"
-        } >> "$ZSHRC"
-        info "Added theme + plugins to $ZSHRC"
-    fi
+    {
+        echo ""
+        echo "# clean-term theme"
+        echo 'ZSH_THEME="clean-term"'
+        echo ""
+        echo "# plugins (add/remove as you like)"
+        echo "plugins=($PLUGINS_LIST)"
+        echo "# end clean-term"
+    } >> "$ZSHRC"
+    info "Added theme + plugins to $ZSHRC"
 else
     cat > "$ZSHRC" <<EOF
 # clean-term theme
