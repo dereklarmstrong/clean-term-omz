@@ -124,15 +124,10 @@ if [[ -f "$ZSHRC" ]]; then
     sed '/^ZSH_THEME=/d' "$ZSHRC" > "$ZSHRC.tmp" && mv "$ZSHRC.tmp" "$ZSHRC"
     sed '/^plugins=(/d' "$ZSHRC" > "$ZSHRC.tmp" && mv "$ZSHRC.tmp" "$ZSHRC"
 
-    {
-        echo ""
-        echo "# clean-term theme"
-        echo 'ZSH_THEME="clean-term"'
-        echo ""
-        echo "# plugins (add/remove as you like)"
-        echo "plugins=($PLUGINS_LIST)"
-        echo "# end clean-term"
-    } >> "$ZSHRC"
+    # Insert theme and plugins BEFORE the OMZ source line
+    sed -i.bak "s|^source.*oh-my-zsh.sh|# clean-term theme\nZSH_THEME=\"clean-term\"\n\n# plugins (add/remove as you like)\nplugins=($PLUGINS_LIST)\n# end clean-term\n\n&|" "$ZSHRC" 2>/dev/null || \
+    sed "s|^source.*oh-my-zsh.sh|# clean-term theme\nZSH_THEME=\"clean-term\"\n\n# plugins (add/remove as you like)\nplugins=($PLUGINS_LIST)\n# end clean-term\n\n&|" "$ZSHRC" > "$ZSHRC.tmp" && mv "$ZSHRC.tmp" "$ZSHRC"
+
     info "Added theme + plugins to $ZSHRC"
 else
     cat > "$ZSHRC" <<EOF
