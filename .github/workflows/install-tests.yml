@@ -89,10 +89,29 @@ jobs:
 
       - name: Verify installation
         run: |
+<<<<<<< HEAD
           VHOME="${{ matrix.verify_home }}"
           [[ -f "$VHOME/.oh-my-zsh/themes/clean-term.zsh-theme" ]] || { echo "Theme file missing"; exit 1; }
           grep -q 'ZSH_THEME="clean-term"' "$VHOME/.zshrc" || { echo "Theme not in .zshrc"; exit 1; }
           grep -q 'plugins=(' "$VHOME/.zshrc" || { echo "Plugins not in .zshrc"; exit 1; }
+=======
+          docker run --rm --user root -v "$GITHUB_WORKSPACE:/workspace:ro" -w /workspace \
+            -e HOME=/tmp/testhome "${{ matrix.image }}" \
+            sh -c "${{ matrix.install_zsh }} && bash /workspace/install.sh"
+
+      - name: Verify installation (native)
+        if: matrix.is_docker != 'true'
+        run: |
+          [[ -f "$HOME/.oh-my-zsh/themes/clean-term.zsh-theme" ]] || { echo "Theme file missing"; exit 1; }
+          grep -q 'ZSH_THEME="clean-term"' "$HOME/.zshrc" || { echo "Theme not in .zshrc"; exit 1; }
+          grep -q 'plugins=(' "$HOME/.zshrc" || { echo "Plugins not in .zshrc"; exit 1; }
+
+      - name: Verify installation (docker)
+        if: matrix.is_docker == 'true'
+        run: |
+          docker run --rm --user root -e HOME=/tmp/testhome "${{ matrix.image }}" \
+            sh -c '[[ -f /tmp/testhome/.oh-my-zsh/themes/clean-term.zsh-theme ]] || exit 1; grep -q "ZSH_THEME=\"clean-term\"" /tmp/testhome/.zshrc || exit 1; grep -q "plugins=(" /tmp/testhome/.zshrc || exit 1'
+>>>>>>> origin/main
 
   syntax-check:
     name: Syntax Check
