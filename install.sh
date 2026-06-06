@@ -119,9 +119,10 @@ if [[ ${#SELECTED_PLUGINS[@]} -gt 0 ]]; then
 fi
 
 if [[ -f "$ZSHRC" ]]; then
-    # Remove old clean-term block and any stray ZSH_THEME line
+    # Remove old clean-term block, ZSH_THEME line, and plugins line
     sed '/# clean-term/,/# end clean-term/d' "$ZSHRC" > "$ZSHRC.tmp" && mv "$ZSHRC.tmp" "$ZSHRC"
     sed '/^ZSH_THEME=/d' "$ZSHRC" > "$ZSHRC.tmp" && mv "$ZSHRC.tmp" "$ZSHRC"
+    sed '/^plugins=(/d' "$ZSHRC" > "$ZSHRC.tmp" && mv "$ZSHRC.tmp" "$ZSHRC"
 
     {
         echo ""
