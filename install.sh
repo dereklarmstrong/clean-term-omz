@@ -54,13 +54,11 @@ PLUGIN_NAMES=(
     "zsh-autosuggestions"
     "zsh-syntax-highlighting"
     "zsh-history-substring-search"
-    "zsh-compreply"
 )
 PLUGIN_URLS=(
     "https://github.com/zsh-users/zsh-autosuggestions.git"
     "https://github.com/zsh-users/zsh-syntax-highlighting.git"
     "https://github.com/zsh-users/zsh-history-substring-search.git"
-    "https://github.com/zsh-users/zsh-compreply.git"
 )
 
 echo ""
