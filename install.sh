@@ -17,9 +17,7 @@ error() { echo -e "${RED}[✗]${NC} $*" >&2; }
 # ── Pre-flight ───────────────────────────────────────────────────────────────
 
 if ! command -v zsh &>/dev/null; then
-    error "zsh not found. Install it first:"
-    echo "  macOS:   brew install zsh"
-    echo "  Linux:   sudo apt install zsh"
+    error "zsh not found. Install it first (use your package manager)."
     exit 1
 fi
 
@@ -50,29 +48,39 @@ fi
 
 # ── Plugin Options ───────────────────────────────────────────────────────────
 
+# Plugin data stored as parallel arrays (bash 3.x compatible)
+PLUGIN_NAMES=(
+    "zsh-autosuggestions"
+    "zsh-syntax-highlighting"
+    "zsh-history-substring-search"
+    "zsh-copyfile"
+    "zsh-compreply"
+)
+PLUGIN_URLS=(
+    "https://github.com/zsh-users/zsh-autosuggestions.git"
+    "https://github.com/zsh-users/zsh-syntax-highlighting.git"
+    "https://github.com/zsh-users/zsh-history-substring-search.git"
+    "https://github.com/chitoku-g/zsh-copyfile.git"
+    "https://github.com/zsh-users/zsh-compreply.git"
+)
+
 echo ""
 echo -e "${CYAN}Plugins (optional — just my personal preferences)${NC}"
 echo "The theme works fine without them. Pick any you want:"
 echo ""
-echo "  1) zsh-autosuggestions        — type-ahead predictions"
-echo "  2) zsh-syntax-highlighting    — real-time syntax color"
-echo "  3) zsh-history-substring-search — search history with arrows"
-echo "  4) zsh-copyfile               — cp preserves timestamps"
-echo "  5) zsh-compreply              — advanced completion"
+for ((i=0; i<${#PLUGIN_NAMES[@]}; i++)); do
+    num=$((i+1))
+    echo "  ${num}) ${PLUGIN_NAMES[$i]}"
+done
 echo ""
 echo "  [Enter] to skip all"
 echo ""
 
-read -p "  Plugin numbers (comma-separated, e.g. 1,2,3): " -r PLUGIN_INPUT
+PLUGIN_INPUT=""
+if [[ -t 0 ]]; then
+    read -p "  Plugin numbers (comma-separated, e.g. 1,2,3): " -r PLUGIN_INPUT
+fi
 PLUGIN_INPUT="${PLUGIN_INPUT// /}"
-
-declare -A EXTERNAL_PLUGINS=(
-    [1]="zsh-autosuggestions|https://github.com/zsh-users/zsh-autosuggestions.git"
-    [2]="zsh-syntax-highlighting|https://github.com/zsh-users/zsh-syntax-highlighting.git"
-    [3]="zsh-history-substring-search|https://github.com/zsh-users/zsh-history-substring-search.git"
-    [4]="zsh-copyfile|https://github.com/chitoku-g/zsh-copyfile.git"
-    [5]="zsh-compreply|https://github.com/zsh-users/zsh-compreply.git"
-)
 
 CUSTOM_PLUGINS="$OMZ_DIR/custom/plugins"
 mkdir -p "$CUSTOM_PLUGINS"
@@ -82,8 +90,11 @@ SELECTED_PLUGINS=()
 if [[ -n "$PLUGIN_INPUT" ]]; then
     IFS=',' read -ra NUMS <<< "$PLUGIN_INPUT"
     for num in "${NUMS[@]}"; do
-        if [[ -n "${EXTERNAL_PLUGINS[$num]:-}" ]]; then
-            IFS='|' read -r name url <<< "${EXTERNAL_PLUGINS[$num]}"
+        # Convert to 0-based index
+        idx=$((num - 1))
+        if [[ $idx -ge 0 && $idx -lt ${#PLUGIN_NAMES[@]} ]]; then
+            name="${PLUGIN_NAMES[$idx]}"
+            url="${PLUGIN_URLS[$idx]}"
             SELECTED_PLUGINS+=("$name")
             dir="$CUSTOM_PLUGINS/$name"
             if [[ -d "$dir/.git" ]]; then
@@ -104,16 +115,18 @@ ZSHRC="$HOME/.zshrc"
 
 # Always include git (OMZ built-in), plus any selected plugins
 PLUGINS_LIST="git"
-for p in "${SELECTED_PLUGINS[@]}"; do
-    PLUGINS_LIST+=" $p"
-done
+if [[ ${#SELECTED_PLUGINS[@]} -gt 0 ]]; then
+    for p in "${SELECTED_PLUGINS[@]}"; do
+        PLUGINS_LIST+=" $p"
+    done
+fi
 
 if [[ -f "$ZSHRC" ]]; then
     if grep -q 'ZSH_THEME="clean-term"' "$ZSHRC"; then
         warn "ZSH_THEME=\"clean-term\" already in $ZSHRC"
     else
-        # Remove old clean-term block if it exists
-        sed -i.bak '/# clean-term/,/# end clean-term/d' "$ZSHRC" 2>/dev/null || true
+        # Remove old clean-term block if it exists (portable sed)
+        sed '/# clean-term/,/# end clean-term/d' "$ZSHRC" > "$ZSHRC.tmp" && mv "$ZSHRC.tmp" "$ZSHRC"
 
         {
             echo ""
@@ -144,11 +157,7 @@ fi
 # ── Default shell ────────────────────────────────────────────────────────────
 
 CURRENT_USER="${USER:-$(whoami 2>/dev/null || echo "")}"
-CURRENT_SHELL=""
-case "$(uname -s)" in
-    Darwin) CURRENT_SHELL="$(dscl . -read "$CURRENT_USER" UserShell 2>/dev/null | awk -F': ' '{print $2}')" ;;
-    Linux)  CURRENT_SHELL="$(getent passwd "$CURRENT_USER" 2>/dev/null | cut -d: -f7)" ;;
-esac
+CURRENT_SHELL="$(grep "^${CURRENT_USER}:" /etc/passwd 2>/dev/null | cut -d: -f7)"
 
 if [[ -n "${CURRENT_SHELL:-}" && "$CURRENT_SHELL" != "$ZSH_PATH" ]]; then
     warn "Your default shell is '$CURRENT_SHELL', not zsh."
