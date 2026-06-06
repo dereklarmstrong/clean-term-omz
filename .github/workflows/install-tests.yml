@@ -1,0 +1,187 @@
+name: Install Tests
+
+on:
+  push:
+    paths:
+      - 'install.sh'
+      - 'themes/**'
+      - '.github/workflows/install-tests.yml'
+  pull_request:
+    paths:
+      - 'install.sh'
+      - 'themes/**'
+      - '.github/workflows/install-tests.yml'
+  workflow_dispatch:
+
+jobs:
+  test-install:
+    name: ${{ matrix.name }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # Ubuntu versions
+          - name: Ubuntu 20.04
+            os: ubuntu-20.04
+            is_docker: false
+            install_zsh: sudo apt-get update && sudo apt-get install -y zsh git curl
+            verify: |
+              [[ -f "$HOME/.oh-my-zsh/themes/clean-term.zsh-theme" ]] || exit 1
+              grep -q 'ZSH_THEME="clean-term"' "$HOME/.zshrc" || exit 1
+              grep -q 'plugins=(' "$HOME/.zshrc" || exit 1
+
+          - name: Ubuntu 22.04
+            os: ubuntu-22.04
+            is_docker: false
+            install_zsh: sudo apt-get update && sudo apt-get install -y zsh git curl
+            verify: |
+              [[ -f "$HOME/.oh-my-zsh/themes/clean-term.zsh-theme" ]] || exit 1
+              grep -q 'ZSH_THEME="clean-term"' "$HOME/.zshrc" || exit 1
+              grep -q 'plugins=(' "$HOME/.zshrc" || exit 1
+
+          - name: Ubuntu 24.04
+            os: ubuntu-24.04
+            is_docker: false
+            install_zsh: sudo apt-get update && sudo apt-get install -y zsh git curl
+            verify: |
+              [[ -f "$HOME/.oh-my-zsh/themes/clean-term.zsh-theme" ]] || exit 1
+              grep -q 'ZSH_THEME="clean-term"' "$HOME/.zshrc" || exit 1
+              grep -q 'plugins=(' "$HOME/.zshrc" || exit 1
+
+          # Debian versions
+          - name: Debian 11
+            os: ubuntu-22.04
+            is_docker: true
+            image: debian:11
+            install_zsh: apt-get update && apt-get install -y zsh git curl
+            verify: |
+              [[ -f /tmp/testhome/.oh-my-zsh/themes/clean-term.zsh-theme ]] || exit 1
+              grep -q 'ZSH_THEME="clean-term"' /tmp/testhome/.zshrc || exit 1
+              grep -q 'plugins=(' /tmp/testhome/.zshrc || exit 1
+
+          - name: Debian 12
+            os: ubuntu-22.04
+            is_docker: true
+            image: debian:12
+            install_zsh: apt-get update && apt-get install -y zsh git curl
+            verify: |
+              [[ -f /tmp/testhome/.oh-my-zsh/themes/clean-term.zsh-theme ]] || exit 1
+              grep -q 'ZSH_THEME="clean-term"' /tmp/testhome/.zshrc || exit 1
+              grep -q 'plugins=(' /tmp/testhome/.zshrc || exit 1
+
+          # Fedora versions
+          - name: Fedora 38
+            os: ubuntu-22.04
+            is_docker: true
+            image: fedora:38
+            install_zsh: dnf install -y zsh git curl
+            verify: |
+              [[ -f /tmp/testhome/.oh-my-zsh/themes/clean-term.zsh-theme ]] || exit 1
+              grep -q 'ZSH_THEME="clean-term"' /tmp/testhome/.zshrc || exit 1
+              grep -q 'plugins=(' /tmp/testhome/.zshrc || exit 1
+
+          - name: Fedora 39
+            os: ubuntu-22.04
+            is_docker: true
+            image: fedora:39
+            install_zsh: dnf install -y zsh git curl
+            verify: |
+              [[ -f /tmp/testhome/.oh-my-zsh/themes/clean-term.zsh-theme ]] || exit 1
+              grep -q 'ZSH_THEME="clean-term"' /tmp/testhome/.zshrc || exit 1
+              grep -q 'plugins=(' /tmp/testhome/.zshrc || exit 1
+
+          - name: Fedora 40
+            os: ubuntu-22.04
+            is_docker: true
+            image: fedora:40
+            install_zsh: dnf install -y zsh git curl
+            verify: |
+              [[ -f /tmp/testhome/.oh-my-zsh/themes/clean-term.zsh-theme ]] || exit 1
+              grep -q 'ZSH_THEME="clean-term"' /tmp/testhome/.zshrc || exit 1
+              grep -q 'plugins=(' /tmp/testhome/.zshrc || exit 1
+
+          # Alpine (edge case - busybox)
+          - name: Alpine 3.19
+            os: ubuntu-22.04
+            is_docker: true
+            image: alpine:3.19
+            install_zsh: apk add zsh git curl bash
+            verify: |
+              [[ -f /tmp/testhome/.oh-my-zsh/themes/clean-term.zsh-theme ]] || exit 1
+              grep -q 'ZSH_THEME="clean-term"' /tmp/testhome/.zshrc || exit 1
+              grep -q 'plugins=(' /tmp/testhome/.zshrc || exit 1
+
+          # macOS
+          - name: macOS 13
+            os: macos-13
+            is_docker: false
+            install_zsh: brew install zsh || true
+            verify: |
+              [[ -f "$HOME/.oh-my-zsh/themes/clean-term.zsh-theme" ]] || exit 1
+              grep -q 'ZSH_THEME="clean-term"' "$HOME/.zshrc" || exit 1
+              grep -q 'plugins=(' "$HOME/.zshrc" || exit 1
+
+          - name: macOS 14
+            os: macos-14
+            is_docker: false
+            install_zsh: brew install zsh || true
+            verify: |
+              [[ -f "$HOME/.oh-my-zsh/themes/clean-term.zsh-theme" ]] || exit 1
+              grep -q 'ZSH_THEME="clean-term"' "$HOME/.zshrc" || exit 1
+              grep -q 'plugins=(' "$HOME/.zshrc" || exit 1
+
+          - name: macOS 15
+            os: macos-15
+            is_docker: false
+            install_zsh: brew install zsh || true
+            verify: |
+              [[ -f "$HOME/.oh-my-zsh/themes/clean-term.zsh-theme" ]] || exit 1
+              grep -q 'ZSH_THEME="clean-term"' "$HOME/.zshrc" || exit 1
+              grep -q 'plugins=(' "$HOME/.zshrc" || exit 1
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup and install (native)
+        if: matrix.is_docker != 'true'
+        run: |
+          ${{ matrix.install_zsh }}
+          bash install.sh
+
+      - name: Setup and install (docker)
+        if: matrix.is_docker == 'true'
+        run: |
+          docker run --rm -v "$GITHUB_WORKSPACE:/workspace:ro" -w /workspace \
+            -e HOME=/tmp/testhome "${{ matrix.image }}" \
+            sh -c "${{ matrix.install_zsh }} && bash /workspace/install.sh"
+
+      - name: Verify installation (native)
+        if: matrix.is_docker != 'true'
+        run: |
+          ${{ matrix.verify }}
+
+      - name: Verify installation (docker)
+        if: matrix.is_docker == 'true'
+        run: |
+          docker run --rm -e HOME=/tmp/testhome "${{ matrix.image }}" \
+            sh -c "${{ matrix.verify }}"
+
+  syntax-check:
+    name: Syntax Check
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check bash syntax
+        run: bash -n install.sh
+
+  theme-check:
+    name: Theme File Check
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify theme file exists and is valid
+        run: |
+          [[ -f themes/clean-term.zsh-theme ]] || exit 1
+          bash -n themes/clean-term.zsh-theme || exit 1
