@@ -41,7 +41,7 @@ A clean, minimal zsh theme for Oh My Zsh with a dashed separator, left-aligned d
 ### One-command install (TUI)
 
 ```bash
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/dereklarmstrong/clean-term-omz/main/install.sh)"
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/dereklarmstrong/clean-term-omz/main/install.sh)"
 ```
 
 This gives you an interactive checkbox TUI where you pick your plugins:
