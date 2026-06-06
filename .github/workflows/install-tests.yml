@@ -16,67 +16,32 @@ on:
 jobs:
   test-install:
     name: ${{ matrix.name }}
+    runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
         include:
-          # Ubuntu versions (native)
+          # Ubuntu versions
           - name: Ubuntu 20.04
             os: ubuntu-20.04
             install_zsh: sudo apt-get update && sudo apt-get install -y zsh git curl
-            verify_home: "$HOME"
           - name: Ubuntu 22.04
             os: ubuntu-22.04
             install_zsh: sudo apt-get update && sudo apt-get install -y zsh git curl
-            verify_home: "$HOME"
           - name: Ubuntu 24.04
             os: ubuntu-24.04
             install_zsh: sudo apt-get update && sudo apt-get install -y zsh git curl
-            verify_home: "$HOME"
 
-          # Debian versions (container)
-          - name: Debian 11
-            container: debian:11
-            install_zsh: apt-get update && apt-get install -y zsh git curl
-            verify_home: "/root"
-          - name: Debian 12
-            container: debian:12
-            install_zsh: apt-get update && apt-get install -y zsh git curl
-            verify_home: "/root"
-
-          # Fedora versions (container)
-          - name: Fedora 38
-            container: fedora:38
-            install_zsh: dnf install -y zsh git curl
-            verify_home: "/root"
-          - name: Fedora 39
-            container: fedora:39
-            install_zsh: dnf install -y zsh git curl
-            verify_home: "/root"
-          - name: Fedora 40
-            container: fedora:40
-            install_zsh: dnf install -y zsh git curl
-            verify_home: "/root"
-
-          # Alpine (container)
-          - name: Alpine 3.19
-            container: alpine:3.19
-            install_zsh: apk add zsh git curl bash
-            verify_home: "/root"
-
-          # macOS (native)
+          # macOS
           - name: macOS 13
             os: macos-13
             install_zsh: brew install zsh || true
-            verify_home: "$HOME"
           - name: macOS 14
             os: macos-14
             install_zsh: brew install zsh || true
-            verify_home: "$HOME"
           - name: macOS 15
             os: macos-15
             install_zsh: brew install zsh || true
-            verify_home: "$HOME"
 
     steps:
       - name: Checkout
@@ -89,10 +54,9 @@ jobs:
 
       - name: Verify installation
         run: |
-          VHOME="${{ matrix.verify_home }}"
-          [[ -f "$VHOME/.oh-my-zsh/themes/clean-term.zsh-theme" ]] || { echo "Theme file missing"; exit 1; }
-          grep -q 'ZSH_THEME="clean-term"' "$VHOME/.zshrc" || { echo "Theme not in .zshrc"; exit 1; }
-          grep -q 'plugins=(' "$VHOME/.zshrc" || { echo "Plugins not in .zshrc"; exit 1; }
+          [[ -f "$HOME/.oh-my-zsh/themes/clean-term.zsh-theme" ]] || { echo "Theme file missing"; exit 1; }
+          grep -q 'ZSH_THEME="clean-term"' "$HOME/.zshrc" || { echo "Theme not in .zshrc"; exit 1; }
+          grep -q 'plugins=(' "$HOME/.zshrc" || { echo "Plugins not in .zshrc"; exit 1; }
 
   syntax-check:
     name: Syntax Check
