@@ -154,7 +154,7 @@ fi
 # ── Default shell ────────────────────────────────────────────────────────────
 
 CURRENT_USER="${USER:-$(whoami 2>/dev/null || echo "")}"
-CURRENT_SHELL="$(grep "^${CURRENT_USER}:" /etc/passwd 2>/dev/null | cut -d: -f7)"
+CURRENT_SHELL="$(grep "^${CURRENT_USER}:" /etc/passwd 2>/dev/null | cut -d: -f7 || true)"
 
 if [[ -n "${CURRENT_SHELL:-}" && "$CURRENT_SHELL" != "$ZSH_PATH" ]]; then
     warn "Your default shell is '$CURRENT_SHELL', not zsh."
