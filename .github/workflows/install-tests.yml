@@ -98,7 +98,7 @@ jobs:
       - name: Setup and install (docker)
         if: matrix.is_docker == 'true'
         run: |
-          docker run --rm -v "$GITHUB_WORKSPACE:/workspace:ro" -w /workspace \
+          docker run --rm --user root -v "$GITHUB_WORKSPACE:/workspace:ro" -w /workspace \
             -e HOME=/tmp/testhome "${{ matrix.image }}" \
             sh -c "${{ matrix.install_zsh }} && bash /workspace/install.sh"
 
@@ -112,7 +112,7 @@ jobs:
       - name: Verify installation (docker)
         if: matrix.is_docker == 'true'
         run: |
-          docker run --rm -e HOME=/tmp/testhome "${{ matrix.image }}" \
+          docker run --rm --user root -e HOME=/tmp/testhome "${{ matrix.image }}" \
             sh -c '[[ -f /tmp/testhome/.oh-my-zsh/themes/clean-term.zsh-theme ]] || exit 1; grep -q "ZSH_THEME=\"clean-term\"" /tmp/testhome/.zshrc || exit 1; grep -q "plugins=(" /tmp/testhome/.zshrc || exit 1'
 
   syntax-check:
