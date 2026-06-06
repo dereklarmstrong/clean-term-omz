@@ -1,5 +1,13 @@
 name: Install Tests
 
+# NOTE: All jobs below create GitHub status checks automatically.
+# To enforce required checks before merging, configure branch protection
+# in repository Settings > Branches > Add branch protection rule:
+#   - Require a pull request reviews: OFF (or ON if you want code review)
+#   - Require status checks to pass: ON
+#   - Required status checks: Syntax Check, Theme File Check, and all
+#     variants of Install Tests (Ubuntu 22.04, Ubuntu 24.04, macOS 14, macOS 15)
+#   - Require branches to be up to date: ON
 on:
   push:
     paths:
@@ -7,6 +15,11 @@ on:
       - 'themes/**'
       - '.github/workflows/install-tests.yml'
   pull_request:
+    paths:
+      - 'install.sh'
+      - 'themes/**'
+      - '.github/workflows/install-tests.yml'
+  merge_group:
     paths:
       - 'install.sh'
       - 'themes/**'
@@ -68,4 +81,4 @@ jobs:
       - name: Verify theme file exists and is valid
         run: |
           [[ -f themes/clean-term.zsh-theme ]] || exit 1
-          bash -n themes/clean-term.zsh-theme || exit 1
+          zsh -n themes/clean-term.zsh-theme || exit 1

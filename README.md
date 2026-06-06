@@ -38,27 +38,25 @@ A clean, minimal zsh theme for Oh My Zsh with a dashed separator, left-aligned d
 
 ## Installation
 
-### One-command install (TUI)
+### One-command install
 
 ```bash
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/dereklarmstrong/clean-term-omz/main/install.sh)"
 ```
 
-This gives you an interactive checkbox TUI where you pick your plugins:
+This runs an interactive installer where you pick your plugins:
 
 ```
-┌──────────────────────────────────────────────────┐
-│  Select plugins to install (Space to toggle,     │
-│  Enter to confirm):                              │
-│                                                  │
-│  [ ] 1 git                                       │
-│  [x] 2 zsh-autosuggestions                       │
-│  [x] 3 zsh-syntax-highlighting                   │
-│  [ ] 4 zsh-history-substring-search              │
-│  [ ] 5 zsh-copyfile                              │
-│                                                  │
-│                              <OK>  <Cancel>      │
-└──────────────────────────────────────────────────┘
+Plugins (optional — just my personal preferences)
+The theme works fine without them. Pick any you want:
+
+  1) zsh-autosuggestions
+  2) zsh-syntax-highlighting
+  3) zsh-history-substring-search
+
+  [Enter] to skip all
+
+  Plugin numbers (comma-separated, e.g. 1,2,3):
 ```
 
 It installs:
@@ -66,19 +64,20 @@ It installs:
 - **Oh My Zsh** (if not already installed)
 - **clean-term theme**
 - **Plugins** — choose from:
-  - `git` (built-in)
+  - `git` (built-in, always included)
   - `zsh-autosuggestions` — predictive suggestions
   - `zsh-syntax-highlighting` — syntax-aware highlighting
   - `zsh-history-substring-search` — arrow-key history search
-  - `zsh-copyfile` — cp preserves timestamps
-  - `zsh-compreply` — advanced completion
 - Configures your `.zshrc` automatically
 
 ### Manual install
 
 ```bash
-# Clone the theme into Oh My Zsh custom themes
+# Clone the theme into Oh My Zsh themes directory
 git clone https://github.com/dereklarmstrong/clean-term-omz.git ~/.oh-my-zsh/custom/themes/clean-term-omz
+
+# Copy the theme file
+cp ~/.oh-my-zsh/custom/themes/clean-term-omz/themes/clean-term.zsh-theme ~/.oh-my-zsh/themes/clean-term.zsh-theme
 ```
 
 Then add to your `.zshrc`:
@@ -88,7 +87,7 @@ ZSH_THEME="clean-term"
 
 Or use it standalone:
 ```bash
-source ~/.oh-my-zsh/custom/themes/clean-term-omz/clean-term.zsh-theme
+source ~/.oh-my-zsh/custom/themes/clean-term-omz/themes/clean-term.zsh-theme
 ```
 
 Finally, restart your terminal:

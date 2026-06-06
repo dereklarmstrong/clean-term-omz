@@ -2,3 +2,14 @@
 *.secrets
 .env
 .zsh_secrets
+
+# Editor backups
+*.swp
+*~
+*.tmp
+
+# macOS
+.DS_Store
+
+# Playwright MCP (local state)
+.playwright-mcp/
