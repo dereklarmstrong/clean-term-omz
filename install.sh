@@ -42,7 +42,8 @@ if [[ -f "$THEME_DST" ]]; then
     warn "clean-term theme already installed."
 else
     info "Installing theme..."
-    cp "$(dirname "$0")/themes/clean-term.zsh-theme" "$THEME_DST"
+    SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+    cp "$SCRIPT_DIR/themes/clean-term.zsh-theme" "$THEME_DST"
     info "Theme installed."
 fi
 
