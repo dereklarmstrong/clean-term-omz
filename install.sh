@@ -36,28 +36,6 @@ else
     sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 fi
 
-# ── Plugins ──────────────────────────────────────────────────────────────────
-
-CUSTOM_PLUGINS="$OMZ_DIR/custom/plugins"
-mkdir -p "$CUSTOM_PLUGINS"
-
-# External plugins (git is built-in to OMZ)
-declare -A EXTERNAL_PLUGINS=(
-    ["zsh-autosuggestions"]="https://github.com/zsh-users/zsh-autosuggestions.git"
-    ["zsh-syntax-highlighting"]="https://github.com/zsh-users/zsh-syntax-highlighting.git"
-    ["zsh-history-substring-search"]="https://github.com/zsh-users/zsh-history-substring-search.git"
-)
-
-for name in "${!EXTERNAL_PLUGINS[@]}"; do
-    dir="$CUSTOM_PLUGINS/$name"
-    if [[ -d "$dir/.git" ]]; then
-        info "Plugin '$name' already installed."
-    else
-        info "Installing plugin: $name"
-        git clone --depth=1 "${EXTERNAL_PLUGINS[$name]}" "$dir"
-    fi
-done
-
 # ── Theme ────────────────────────────────────────────────────────────────────
 
 THEME_DST="$OMZ_DIR/themes/clean-term.zsh-theme"
@@ -70,10 +48,65 @@ else
     info "Theme installed."
 fi
 
+# ── Plugin Options ───────────────────────────────────────────────────────────
+
+echo ""
+echo -e "${CYAN}Plugins (optional — just my personal preferences)${NC}"
+echo "The theme works fine without them. Pick any you want:"
+echo ""
+echo "  1) zsh-autosuggestions        — type-ahead predictions"
+echo "  2) zsh-syntax-highlighting    — real-time syntax color"
+echo "  3) zsh-history-substring-search — search history with arrows"
+echo "  4) zsh-copyfile               — cp preserves timestamps"
+echo "  5) zsh-compreply              — advanced completion"
+echo ""
+echo "  [Enter] to skip all"
+echo ""
+
+read -p "  Plugin numbers (comma-separated, e.g. 1,2,3): " -r PLUGIN_INPUT
+PLUGIN_INPUT="${PLUGIN_INPUT// /}"
+
+declare -A EXTERNAL_PLUGINS=(
+    [1]="zsh-autosuggestions|https://github.com/zsh-users/zsh-autosuggestions.git"
+    [2]="zsh-syntax-highlighting|https://github.com/zsh-users/zsh-syntax-highlighting.git"
+    [3]="zsh-history-substring-search|https://github.com/zsh-users/zsh-history-substring-search.git"
+    [4]="zsh-copyfile|https://github.com/chitoku-g/zsh-copyfile.git"
+    [5]="zsh-compreply|https://github.com/zsh-users/zsh-compreply.git"
+)
+
+CUSTOM_PLUGINS="$OMZ_DIR/custom/plugins"
+mkdir -p "$CUSTOM_PLUGINS"
+
+SELECTED_PLUGINS=()
+
+if [[ -n "$PLUGIN_INPUT" ]]; then
+    IFS=',' read -ra NUMS <<< "$PLUGIN_INPUT"
+    for num in "${NUMS[@]}"; do
+        if [[ -n "${EXTERNAL_PLUGINS[$num]:-}" ]]; then
+            IFS='|' read -r name url <<< "${EXTERNAL_PLUGINS[$num]}"
+            SELECTED_PLUGINS+=("$name")
+            dir="$CUSTOM_PLUGINS/$name"
+            if [[ -d "$dir/.git" ]]; then
+                info "Plugin '$name' already installed."
+            else
+                info "Installing plugin: $name"
+                git clone --depth=1 "$url" "$dir"
+            fi
+        else
+            warn "Unknown plugin number: $num"
+        fi
+    done
+fi
+
 # ── .zshrc ───────────────────────────────────────────────────────────────────
 
 ZSHRC="$HOME/.zshrc"
-PLUGINS_LIST="git zsh-autosuggestions zsh-syntax-highlighting zsh-history-substring-search"
+
+# Always include git (OMZ built-in), plus any selected plugins
+PLUGINS_LIST="git"
+for p in "${SELECTED_PLUGINS[@]}"; do
+    PLUGINS_LIST+=" $p"
+done
 
 if [[ -f "$ZSHRC" ]]; then
     if grep -q 'ZSH_THEME="clean-term"' "$ZSHRC"; then
@@ -87,7 +120,7 @@ if [[ -f "$ZSHRC" ]]; then
             echo "# clean-term theme"
             echo 'ZSH_THEME="clean-term"'
             echo ""
-            echo "# plugins"
+            echo "# plugins (add/remove as you like)"
             echo "plugins=($PLUGINS_LIST)"
             echo "# end clean-term"
         } >> "$ZSHRC"
@@ -98,7 +131,7 @@ else
 # clean-term theme
 ZSH_THEME="clean-term"
 
-# plugins
+# plugins (add/remove as you like)
 plugins=($PLUGINS_LIST)
 # end clean-term
 
